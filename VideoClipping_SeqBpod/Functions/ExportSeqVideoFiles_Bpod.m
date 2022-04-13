@@ -212,6 +212,7 @@ switch lower(event)
                     time_of_frame = sprintf('%3.0f', round(itframes_norm(1)));
                     time_text = text(10, 30, [time_of_frame ' ms'], 'color', [246 233 35]/255, 'fontsize', 12,'fontweight', 'bold');
                     text(10, 70, [num2str(vid_fps),' FPS'], 'color', [246 233 35]/255, 'fontsize', 10,'fontweight', 'bold')
+                    text(10, img_height-40*6,  sprintf('%s',anm), 'color', [255 255 255]/255, 'fontsize',  10, 'fontweight', 'bold');
                     text(10, img_height-40*5,  sprintf('%s',session), 'color', [255 255 255]/255, 'fontsize',  10, 'fontweight', 'bold')
                     text(10, img_height-40*4,  sprintf('%s %03d', event, ind_event_incl(i)), 'color', [255 255 255]/255, 'fontsize',  10, 'fontweight', 'bold')
                     text(10, img_height-40*3,  sprintf('FP %2.0f ms', iFP), 'color', [255 255 255]/255, 'fontsize',  10, 'fontweight', 'bold')
