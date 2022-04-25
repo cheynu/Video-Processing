@@ -24,9 +24,9 @@ for i=1:length(SeqVidFile)
     numFrames = [numFrames,headerInfo.AllocatedFrames];
 end
 allFrames = sum(numFrames);
-
 costTime = nan(1,ceil(allFrames/100));
 fbar = waitbar(0,'Masking time remaining: calculating...');
+idxFrame = 1;
 for i=1:length(SeqVidFile)
     %  Read all frames:
     tstart = 0;
@@ -34,12 +34,12 @@ for i=1:length(SeqVidFile)
         if isnan(costTime(1))
             costTime(1) = 0;
             wtic = tic;
-        elseif rem(kframe,100)==0
-            costTime(kframe/100) = toc(wtic);
+        elseif rem(idxFrame,100)==0
+            costTime(idxFrame/100) = toc(wtic);
             remainTimeS = mean(costTime,'omitnan').*sum(isnan(costTime));
             remainTimeM = ceil(remainTimeS./60);
             remainTime = [num2str(remainTimeM),' min'];
-            waitbar(kframe/allFrames, fbar, ['Masking time remaining: ',remainTime]);
+            waitbar(idxFrame/allFrames, fbar, ['Masking time remaining: ',remainTime]);
             wtic = tic;
         end
         
@@ -64,6 +64,8 @@ for i=1:length(SeqVidFile)
         SummedROI       = [SummedROI roi_k];
         SeqFrameIndx    = [SeqFrameIndx kframe];
         SeqFileIndx     = [SeqFileIndx i];
+        
+        idxFrame = idxFrame + 1;
     end
 end
 close(fbar);

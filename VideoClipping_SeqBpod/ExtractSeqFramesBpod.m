@@ -1,13 +1,11 @@
 %% Initialize
 clear;clc;
-path_func = '';
+path_func = 'C:\Users\CY\OneDrive\lab\VideoProcessing\VideoClipping_SeqBpod\Functions';
 if isempty(path_func) || ~isfolder(path_func)
     path_func = uigetdir(pwd,'Select the path containing necessary functions');
 end
 if isfolder(string(path_func))
-    oldpath = addpath(path_func);
-else
-    oldpath = path;
+    addpath(path_func);
 end
 %% Extract Seq & Bpod data for aligning
 BpodFile = arrayfun(@(x)x.name, dir('*DSRT*.mat'), 'UniformOutput', false);
@@ -96,5 +94,3 @@ spname = split(string(FrameInfo.Bpodfile{1}), '_');
 BpodSbj = spname(1);
 BpodDate = spname(5);
 ExportSeqVideoFiles_Bpod(bt, FrameInfo, 'Event', 'Trialstart', 'TimeRange', [2000 3000], 'SessionName',BpodDate, 'RatName', BpodSbj, 'Remake', 1);
-%% Close
-path(oldpath);
